@@ -29,6 +29,7 @@
 ### 环境要求
 - Node.js >= 18
 - npm 或 yarn
+- Android SDK（构建 APK 时需要）
 
 ### 快速开始
 
@@ -46,6 +47,35 @@ npm run dev
 # 构建生产版本
 npm run build
 ```
+
+### Android APK 打包
+
+```bash
+# 添加 Android 平台（如已存在可跳过）
+npx cap add android
+
+# 同步 Web 代码到 Android 项目
+npx cap sync android
+
+# 打开 Android Studio
+npx cap open android
+
+# 或使用命令行构建 APK
+cd android
+./gradlew assembleDebug
+```
+
+构建完成后，APK 文件位于：
+```
+android/app/build/outputs/apk/debug/app-debug.apk
+```
+
+### PWA 说明
+
+项目已配置 PWA（渐进式 Web 应用）：
+- `public/manifest.json` - PWA 清单配置
+- `public/sw.js` - Service Worker，支持离线缓存
+- 图标位于 `public/icons/`
 
 ---
 
