@@ -1,15 +1,12 @@
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Search, ShoppingCart } from 'lucide-react';
+import { ArrowLeft, Search } from 'lucide-react';
 import { useProductStore } from '../../store/useProductStore';
-import { useCartStore } from '../../store/useCartStore';
 import ProductCard from '../../components/ProductCard';
 
 export default function CategoryPage() {
   const { id } = useParams();
   const categories = useProductStore((state) => state.categories);
   const products = useProductStore((state) => state.products);
-  const items = useCartStore((state) => state.items);
-  const cartCount = items.reduce((sum, item) => sum + item.quantity, 0);
 
   const filteredProducts = id
     ? products.filter((p) => p.category === id)
@@ -28,14 +25,6 @@ export default function CategoryPage() {
           <h1 className="flex-1 font-bold text-gray-800">
             {currentCategory ? currentCategory.name : '全部商品'}
           </h1>
-          <Link to="/cart" className="relative p-2 hover:bg-gray-100 rounded-full">
-            <ShoppingCart className="w-5 h-5" />
-            {cartCount > 0 && (
-              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
-                {cartCount}
-              </span>
-            )}
-          </Link>
         </div>
 
         {/* 分类切换 */}
