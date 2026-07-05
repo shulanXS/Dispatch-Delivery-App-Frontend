@@ -1,5 +1,5 @@
-import { Minus, Plus, RotateCcw } from "lucide-react";
-import { useCartStore } from "../store/useCartStore";
+import { Minus, Plus, RotateCcw } from 'lucide-react';
+import { useCartStore } from '../store/useCartStore';
 
 const MAX_QUANTITY = 99;
 
@@ -26,7 +26,7 @@ export default function CartItem({ item }) {
   return (
     <div
       className={`flex gap-3 p-4 rounded-lg shadow-sm transition-all duration-300 ${
-        isRemoved ? "bg-gray-50 opacity-60" : "bg-white"
+        isRemoved ? 'bg-gray-50 opacity-60' : 'bg-white'
       }`}
     >
       <input
@@ -37,38 +37,38 @@ export default function CartItem({ item }) {
         className="w-5 h-5 mt-6 accent-blue-600 cursor-pointer disabled:cursor-not-allowed disabled:opacity-30"
       />
       <div
-        className={`w-20 h-20 rounded-lg flex items-center justify-center flex-shrink-0 ${
-          isRemoved ? "bg-gray-200" : "bg-gray-100"
+        className={`w-20 h-20 rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden ${
+          isRemoved ? 'bg-gray-200' : 'bg-gray-50'
         }`}
       >
-        <span className={`text-3xl ${isRemoved ? "grayscale" : ""}`}>
-          {getCategoryEmoji(item.image)}
-        </span>
+        {item.image ? (
+          <img
+            src={item.image}
+            alt={item.name}
+            loading="lazy"
+            className={`w-full h-full object-cover ${
+              isRemoved ? 'grayscale' : ''
+            }`}
+          />
+        ) : (
+          <span className="text-3xl">📦</span>
+        )}
       </div>
       <div className="flex-1 min-w-0">
         <h3
           className={`font-medium truncate ${
-            isRemoved ? "text-gray-400 line-through" : "text-gray-800"
+            isRemoved ? 'text-gray-400 line-through' : 'text-gray-800'
           }`}
         >
           {item.name}
         </h3>
         <p
-          className={`text-sm mt-0.5 ${isRemoved ? "text-gray-400" : "text-gray-500"}`}
+          className={`text-sm mt-0.5 ${
+            isRemoved ? 'text-gray-400' : 'text-gray-500'
+          }`}
         >
           ¥{item.price.toFixed(2)}
         </p>
-        {item.freshness && (
-          <span
-            className={`inline-block mt-1 text-xs px-1.5 py-0.5 rounded ${
-              isRemoved
-                ? "text-gray-400 bg-gray-100"
-                : "text-green-600 bg-green-50"
-            }`}
-          >
-            {item.freshness}
-          </span>
-        )}
         <div className="flex items-center justify-between mt-2">
           <div className="flex items-center gap-2">
             <button
@@ -109,7 +109,7 @@ export default function CartItem({ item }) {
       <div className="text-right flex-shrink-0">
         <span
           className={`font-bold ${
-            isRemoved ? "text-gray-300" : "text-blue-600"
+            isRemoved ? 'text-gray-300' : 'text-blue-600'
           }`}
         >
           ¥{(item.price * item.quantity).toFixed(2)}
@@ -117,16 +117,4 @@ export default function CartItem({ item }) {
       </div>
     </div>
   );
-}
-
-function getCategoryEmoji(image) {
-  if (image?.includes("vegetable")) return "🥬";
-  if (image?.includes("fruit")) return "🍓";
-  if (image?.includes("drinks")) return "🥤";
-  if (image?.includes("snacks")) return "🍪";
-  if (image?.includes("dairy")) return "🥛";
-  if (image?.includes("meat")) return "🥩";
-  if (image?.includes("seafood")) return "🦐";
-  if (image?.includes("frozen")) return "🧊";
-  return "📦";
 }

@@ -1,6 +1,6 @@
 {
-  "name": "派送配送 - 无人配送商超",
-  "short_name": "派送配送",
+  "name": "SkyDrop - 无人配送商超",
+  "short_name": "SkyDrop",
   "description": "极速无人配送，15分钟送达",
   "start_url": "/",
   "display": "standalone",
