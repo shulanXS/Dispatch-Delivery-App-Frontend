@@ -1,1 +1,38 @@
+# Dependencies
+node_modules/
 
+# Build output
+dist/
+
+# Android/Capacitor
+android/.gradle/
+android/app/build/
+android/build/
+android/capacitor.build/
+android/.idea/
+android/.gradle/
+
+# iOS
+ios/App/Pods/
+ios/App/build/
+ios/App/App.xcworkspace/xcuserdata/
+
+# IDE
+.DS_Store
+.idea/
+*.iml
+.vscode/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Editor
+*.swp
+*.swo
+*~
