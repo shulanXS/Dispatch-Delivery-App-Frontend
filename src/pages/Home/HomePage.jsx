@@ -18,6 +18,7 @@ import { useOrderStore } from '../../store/useOrderStore';
 import { useCartStore } from '../../store/useCartStore';
 import LoadingState from '../../components/LoadingState';
 import SafeImage from '../../components/SafeImage';
+import AiRecommendPanel from '../../components/AiRecommendPanel';
 import { formatRelative } from '../../utils/datetime';
 import { groupProductsByCategory } from '../../data/categoryKeywords';
 
@@ -187,6 +188,12 @@ export default function HomePage() {
           />
         </div>
       </div>
+
+      {/* AI recommendation — natural-language shopping entry point.
+          Lives on the home page because users who don't yet know what they
+          want never make it past the hero. Putting it before the active-order
+          teaser also means it shows up above the fold for first-time users. */}
+      <AiRecommendPanel />
 
       {/* Active order teaser */}
       {activeOrders.length > 0 && (
