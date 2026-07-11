@@ -19,7 +19,7 @@ import * as ordersApi from '../../api/orders';
 
 const DELIVERY_OPTIONS = [
   {
-    method: 'drone',
+    method: 'DRONE',
     label: '无人机配送',
     sublabel: '15-25 分钟送达 · 空中直达',
     icon: Plane,
@@ -29,7 +29,7 @@ const DELIVERY_OPTIONS = [
     fee: 2.99,
   },
   {
-    method: 'robot',
+    method: 'ROBOT',
     label: '地面机器人配送',
     sublabel: '25-40 分钟送达 · 大件优选',
     icon: Truck,
@@ -250,7 +250,7 @@ export default function CheckoutPage() {
         {plansLoading && (
           <div className="text-sm text-gray-500 flex items-center gap-2 py-3">
             <Loader2 className="w-4 h-4 animate-spin" />
-            正在计算{deliveryMethod === 'robot' ? '地面机器人' : '无人机'}配送方案…
+            正在计算{deliveryMethod === 'ROBOT' ? '地面机器人' : '无人机'}配送方案…
           </div>
         )}
         {plansError && (
@@ -289,7 +289,7 @@ export default function CheckoutPage() {
                   </span>
                   <span className="inline-flex items-center gap-1">
                     <Plane className="w-3 h-3" />
-                    {deliveryMethod === 'robot' ? '机器人' : '无人机'}{' '}
+                    {deliveryMethod === 'ROBOT' ? '机器人' : '无人机'}{' '}
                     {plan.availableDrones ?? 0}
                   </span>
                   {plan.estimatedMinutes != null && (
@@ -354,7 +354,7 @@ export default function CheckoutPage() {
           </div>
           <div className="flex justify-between">
             <span className="text-gray-500">
-              配送费{deliveryMethod === 'drone' ? '（无人机）' : '（机器人）'}
+              配送费{deliveryMethod === 'DRONE' ? '（无人机）' : '（机器人）'}
             </span>
             <span className={deliveryFee === 0 ? 'text-green-600' : ''}>
               {deliveryFee === 0 ? '¥0.00' : `¥${Number(deliveryFee).toFixed(2)}`}

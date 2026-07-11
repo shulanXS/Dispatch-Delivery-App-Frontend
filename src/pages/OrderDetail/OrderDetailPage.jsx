@@ -53,6 +53,11 @@ const TIMELINE_STEPS = [
   { key: 'completed', label: '已完成', match: (s) => s >= 3, get: (o) => o.completedAt },
 ];
 
+const DELIVERY_FEE_BY_MODE = {
+  DRONE: 2.99,
+  ROBOT: 1.99,
+};
+
 export default function OrderDetailPage() {
   const { orderNo } = useParams();
   const user = useAuthStore((s) => s.user);
@@ -110,9 +115,12 @@ export default function OrderDetailPage() {
     );
   }
 
-  const isDrone = (order.deliveryMode || 'DRONE') === 'DRONE';
+  const isDrone = (order.deliveryMode || 'DRONE').toUpperCase() === 'DRONE';
   const VehicleIcon = isDrone ? Plane : Truck;
   const vehicleLabel = isDrone ? '无人机' : '地面机器人';
+  const deliveryModeUpper = (order.deliveryMode || 'DRONE').toUpperCase();
+  const deliveryFee =
+    DELIVERY_FEE_BY_MODE[deliveryModeUpper] ?? DELIVERY_FEE_BY_MODE.DRONE;
   const gradient = STATUS_GRADIENT[order.status] || STATUS_GRADIENT[0];
   const deliveryAddress =
     order.deliveryAddress || user?.address || '下单时选择的配送点';
@@ -318,13 +326,15 @@ export default function OrderDetailPage() {
             <span>¥{Number(order.totalAmount).toFixed(2)}</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-gray-500">配送费</span>
-            <span className="text-green-600">免运费</span>
+            <span className="text-gray-500">
+              配送费（{isDrone ? '无人机' : '地面机器人'}）
+            </span>
+            <span>¥{Number(deliveryFee).toFixed(2)}</span>
           </div>
           <div className="border-t pt-2 mt-2 flex justify-between font-bold text-base">
             <span>实付金额</span>
             <span className="text-blue-600 text-lg">
-              ¥{Number(order.totalAmount).toFixed(2)}
+              ¥{(Number(order.totalAmount) + Number(deliveryFee)).toFixed(2)}
             </span>
           </div>
         </div>

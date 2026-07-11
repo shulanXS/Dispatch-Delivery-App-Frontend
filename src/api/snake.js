@@ -1,34 +1,11 @@
-// Snake -> camel conversion for backend response payloads.
-//
-// The Spring backend uses a global SNAKE_CASE naming strategy
-// (application.yaml -> spring.jackson.property-naming-strategy=SNAKE_CASE),
-// so every JSON response is snake_case. The apiClient request interceptor
-// already converts outgoing request bodies to snake_case, so this module
-// only handles the inbound (response) direction.
-//
-// We expose a small wrapper so call sites can stay compact.
+import apiClient from './client';
 
-const UNDERSCORE_RE = /_([a-z0-9])/g;
-
-function camelize(str) {
-  return String(str).replace(UNDERSCORE_RE, (_, c) => c.toUpperCase());
-}
-
-export function keysToCamel(value) {
-  if (Array.isArray(value)) return value.map(keysToCamel);
-  if (value && typeof value === 'object' && value.constructor === Object) {
-    const out = {};
-    for (const k of Object.keys(value)) {
-      out[camelize(k)] = keysToCamel(value[k]);
-    }
-    return out;
-  }
-  return value;
-}
+// Snake -> camel conversion happens once, in apiClient's response
+// interceptor (client.js). This module just exposes thin wrappers so
+// call sites can stay compact without spelling out the HTTP verb.
 
 async function call(method, path, body, config) {
-  const mod = await import('./client');
-  const response = await mod.default.request({
+  const response = await apiClient.request({
     method,
     url: path,
     ...(config || {}),
@@ -38,7 +15,7 @@ async function call(method, path, body, config) {
         : { data: body }
       : {}),
   });
-  return keysToCamel(response.data);
+  return response.data;
 }
 
 export const get = (path, config) => call('get', path, undefined, config);
