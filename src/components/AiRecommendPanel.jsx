@@ -249,7 +249,7 @@ export default function AiRecommendPanel() {
           {!loading && items.length === 0 && !error && summary === '' && (
             <div className="mt-3 text-[11px] text-gray-400 text-center">
               <Check className="w-3 h-3 inline-block mr-1 -mt-0.5" />
-              支持中文与英文描述，未配置 AI Key 时使用关键字匹配
+              支持中文与英文描述
             </div>
           )}
         </div>
