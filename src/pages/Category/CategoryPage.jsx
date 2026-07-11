@@ -14,6 +14,7 @@ import { useCartStore } from '../../store/useCartStore';
 import { categories } from '../../mock/categories';
 import { inferCategory } from '../../data/categoryKeywords';
 import ProductCard from '../../components/ProductCard';
+import AiRecommendPanel from '../../components/AiRecommendPanel';
 
 export default function CategoryPage() {
   const { id } = useParams();
@@ -185,6 +186,8 @@ export default function CategoryPage() {
           })}
         </div>
       </div>
+
+      <AiRecommendPanel />
 
       <div className="p-4">
         <div className="flex items-center justify-between mb-4">
